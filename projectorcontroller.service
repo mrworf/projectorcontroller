@@ -1,0 +1,13 @@
+[Unit]
+Description=JVC serial controller gateway
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/projectorcontroller/
+ExecStart=/root/projectorcontroller/start.sh
+SyslogIdentifier=projectorcontroller
+
+[Install]
+WantedBy=multi-user.target
