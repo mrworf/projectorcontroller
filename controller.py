@@ -12,7 +12,7 @@
 import serial
 import threading
 import time
-import Queue
+import queue
 import logging
 import codecs
 
@@ -64,7 +64,7 @@ class ProjectorController (threading.Thread):
 
   def sendHex(self, hexcode):
     str = codecs.decode(hexcode, 'hex_codec')
-    self.port.write(str)
+    self.port.write(str.encode('ascii'))
 
   def run(self):
     """
@@ -74,7 +74,7 @@ class ProjectorController (threading.Thread):
     while True:
       #logging.debug("Pre-read")
       try:
-        data = self.port.read(1024)
+        data = self.port.read(1024).decode('ascii')
       except:
         logging.error('Problems reading from serial, USB device disconnected?')
         self.cbTerminate()
